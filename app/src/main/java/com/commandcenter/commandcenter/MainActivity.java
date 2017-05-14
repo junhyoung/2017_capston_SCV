@@ -1,5 +1,6 @@
 package com.commandcenter.commandcenter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -14,9 +15,22 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.dynamodbv2.*;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
+import com.amazonaws.services.dynamodbv2.model.*;
+
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.dynamodbv2.*;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
+
 
 public class MainActivity extends AppCompatActivity {
+    // Initialize the Amazon Cognito credentials provider
 
+    private Context mContext=this;
     ImageView imView;
     TextView txt1;
     TextView txt2;
@@ -29,9 +43,24 @@ public class MainActivity extends AppCompatActivity {
     //Member[] m1, m2, m3 ; //참조 변수 선언
     Member[] member = new Member[MEMBER_NUM]; //객체타입의 배열 갯수
     int[] countArray = new int[MEMBER_NUM];
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                getApplicationContext(),
+                "ap-northeast-2:119d7d46-cdd7-445c-8b36-50e92f94a522", // Identity Pool ID
+                Regions.AP_NORTHEAST_2 // Region
+        );
+        AmazonDynamoDBClient ddbClient = new AmazonDynamoDBClient(credentialsProvider);
+        DynamoDBMapper mapper = new DynamoDBMapper(ddbClient);
+
+
+
+//        Product p = mapper.load(Product.class,"0000000000");
+        //p= new product();
+        //p.setAsin("0000000002");
+        //p.setReview1("WTF!!");
+        //mapper.save(p);
+        //System.out.println(p.getAsin());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         task = new phpDown();
@@ -74,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
             imView.setImageBitmap(bmImg);
         }
     }
+
+    //Mysql connect
     private class phpDown extends AsyncTask<String, Integer, String> {
         @Override
         protected String doInBackground(String... urls) {

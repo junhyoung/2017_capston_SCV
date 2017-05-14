@@ -1,0 +1,24 @@
+package com.commandcenter.commandcenter;
+/**
+ * Created by 준형 on 2017-05-10.
+ */
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
+
+@DynamoDBTable(tableName = "Product")
+public class Product {
+    private String asin;
+    private  String review1;
+
+    @DynamoDBHashKey
+    public String getAsin() {
+        return asin;
+    }
+    public void setAsin(String asin) {
+        this.asin = asin;
+    }
+
+    @DynamoDBAttribute(attributeName = "review1")
+    public String getReview1(){ return review1;}
+    public void setReview1(String review1){this.review1=review1;}
+
+}
