@@ -131,7 +131,7 @@
 
                 <TextView
                     android:textColor="#000000"
-                    android:text="TextView"
+                    android:text="recommandation produce"
                     android:textAlignment="center"
                     android:layout_height="10dp"
                     tools:text="recommandation produce"

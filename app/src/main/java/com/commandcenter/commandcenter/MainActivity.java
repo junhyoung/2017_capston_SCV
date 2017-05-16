@@ -9,16 +9,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobileconnectors.amazonmobileanalytics.internal.core.system.System;
+import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
+import com.amazonaws.mobileconnectors.cognito.Dataset;
+import com.amazonaws.mobileconnectors.cognito.DefaultSyncCallback;
+import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.*;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
+import android.os.AsyncTask;
+import android.widget.Toast;
+
 import com.amazonaws.services.dynamodbv2.model.*;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
@@ -30,79 +41,56 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
 public class MainActivity extends AppCompatActivity {
     // Initialize the Amazon Cognito credentials provider
 
-    private Context mContext=this;
-    ImageView imView;
-    TextView txt1;
-    TextView txt2;
-    TextView txt3;
+    private Context mContext = this;
+    ImageView recommand_img;
+    TextView review_name;
+    TextView review_content;
+    TextView recommand_name;
+
     Bitmap bmImg;
     phpDown task;
     static final int MEMBER_NUM = 10000;
     static final int OPTION_NUM = 3;
     int total_num;
+    String asin;
     //Member[] m1, m2, m3 ; //참조 변수 선언
     Member[] member = new Member[MEMBER_NUM]; //객체타입의 배열 갯수
     int[] countArray = new int[MEMBER_NUM];
+    Product review=new Product();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-                getApplicationContext(),
-                "ap-northeast-2:119d7d46-cdd7-445c-8b36-50e92f94a522", // Identity Pool ID
-                Regions.AP_NORTHEAST_2 // Region
-        );
-        AmazonDynamoDBClient ddbClient = new AmazonDynamoDBClient(credentialsProvider);
-        DynamoDBMapper mapper = new DynamoDBMapper(ddbClient);
 
-
-
-//        Product p = mapper.load(Product.class,"0000000000");
-        //p= new product();
-        //p.setAsin("0000000002");
-        //p.setReview1("WTF!!");
-        //mapper.save(p);
-        //System.out.println(p.getAsin());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         task = new phpDown();
-        txt1 = (TextView) findViewById(R.id.review_name);
-        //txt2 = (TextView) findViewById(R.id.txtView2);
-        //imView = (ImageView) findViewById(R.id.recommand_image);
-
-        for(int i=0; i < MEMBER_NUM; i++){ //해당 객체 배열마다 생성하는 과정
+        Right_layout RL=new Right_layout(this);
+        review_name = (TextView) findViewById(R.id.review_name);
+        review_content = (TextView) findViewById(R.id.review_content);
+        recommand_img=(ImageView)findViewById(R.id.recommand_image);
+        recommand_name=(TextView)findViewById(R.id.recommand_Name);
+        for (int i = 0; i < MEMBER_NUM; i++) { //해당 객체 배열마다 생성하는 과정
             //System.out.println(i+"번째 객체 생성"); // 테스트 출력
             member[i] = new Member();
             countArray[i] = 0; //배열초기화도 같이
         }
-        task.execute("http://ec2-52-78-183-104.ap-northeast-2.compute.amazonaws.com/RDS.php");
-        //task.execute("http://192.168.35.128/phpinfo2.php");
+        asin="0000000000";
+        review=RL.searchReview(asin);
+        setReview(review);
+        try {
+            recommand_name.setText(task.execute("http://ec2-52-78-183-104.ap-northeast-2.compute.amazonaws.com/RDS.php").get());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
-    private class back extends AsyncTask<String, Integer, Bitmap> {
+    public void setReview(Product review){
 
-
-        @Override
-        protected Bitmap doInBackground(String... urls) {
-            // TODO Auto-generated method stub
-            try {
-                URL myFileUrl = new URL(urls[0]);
-                HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
-                conn.setDoInput(true);
-                conn.connect();
-                //String json = DownloadHtml("http://서버주소/appdata.php");
-                InputStream is = conn.getInputStream();
-
-                bmImg = BitmapFactory.decodeStream(is);
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return bmImg;
-        }
-        protected void onPostExecute(Bitmap img) {
-            imView.setImageBitmap(bmImg);
-        }
+        review_name.setText(review.getAsin());
+        review_content.setText(review.getReview1());
     }
+
 
     //Mysql connect
     private class phpDown extends AsyncTask<String, Integer, String> {
@@ -159,9 +147,5 @@ public class MainActivity extends AppCompatActivity {
             }
             return jsonHtml.toString();
         } //doInBackground
-
-        protected void onPostExecute(String str) {
-            txt1.setText(str);
-        }
     }//phpDown
 }//Main

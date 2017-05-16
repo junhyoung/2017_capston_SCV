@@ -9,7 +9,7 @@ public class Product {
     private String asin;
     private  String review1;
 
-    @DynamoDBHashKey
+    @DynamoDBHashKey(attributeName = "asin")
     public String getAsin() {
         return asin;
     }
