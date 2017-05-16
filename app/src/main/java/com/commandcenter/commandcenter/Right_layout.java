@@ -20,10 +20,8 @@ public class Right_layout{
     private Product p= new Product();
 
 
-    public Right_layout(Context context) {
-        this.mContext = context;
-        System.out.print(mContext);
-    }
+    public Right_layout(Context context) { this.mContext = context; }
+
     Product searchReview(String asin){
         try {
             p = s.execute(asin).get();

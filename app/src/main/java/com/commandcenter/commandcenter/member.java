@@ -1,18 +1,11 @@
 package com.commandcenter.commandcenter;
 
 public class Member {
-    private String date;
     private String bacord_number;
 
     Member() {}
     void print(){
-        System.out.println("date: " + date+", bacord_number : "+bacord_number);
-    }
-    void setDate(String date){
-        this.date = date;
-    }
-    String getDate(){
-        return this.date;
+        System.out.println("bacord_number : "+bacord_number);
     }
 
     void setBacord(String num){
