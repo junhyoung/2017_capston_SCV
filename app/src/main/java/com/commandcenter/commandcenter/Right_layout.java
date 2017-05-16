@@ -59,10 +59,5 @@ public class Right_layout{
             }
             return p;
         }
-
-        protected void onPostExecute(Product p) {
-            //txt1.setText("A");
-            //txt2.setText(p.getAsin());
-        }
     }
 }

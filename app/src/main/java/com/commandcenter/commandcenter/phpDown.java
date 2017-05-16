@@ -1,6 +1,7 @@
 package com.commandcenter.commandcenter;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,12 +33,12 @@ public class phpDown extends AsyncTask<String, Integer, String> {
                 conn.setConnectTimeout(10000);
                 conn.setUseCaches(false);
                 // 연결되었음 코드가 리턴되면.
+
                 if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
                     sb = new StringBuffer();
                     String line = "";
                     line=br.readLine(); // num 잘라내기
-                    java.lang.System.out.println("LINE : "+line);
                     line = br.readLine(); // Json 내용
                     try {
                         JSONArray jarray = new JSONArray(line);   // JSONArray 생성
