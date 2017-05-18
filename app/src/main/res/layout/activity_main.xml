@@ -16,34 +16,123 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight="1"
         android:layout_height="match_parent"
-        android:background="#f0ffff"
-        android:orientation="vertical" >
+        android:layout_weight="1"
+        android:background="#000000"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:gravity="right"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="0.07"
+            android:gravity="right"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/search_product"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="물품검색하기" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.06"
+            android:gravity="right"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="구매희망목록"
+                android:textAlignment="center"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.37"
+            android:gravity="right"
+            android:weightSum="1">
 
             <ListView
-                android:layout_width="134dp"
-                android:layout_height="match_parent" />
+                android:id="@+id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.06"
+            android:gravity="right"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="44dp"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="구매목록"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="44dp"
+                android:layout_weight="0.25"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/del_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="25"
+                    android:text="구매취소" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="44dp"
+                android:layout_weight="0.3"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/f5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="25"
+                    android:text="리뷰보기" />
+            </LinearLayout>
+
 
         </LinearLayout>
 
         <LinearLayout
-            android:gravity="right"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.37"
+            android:gravity="right"
             android:weightSum="1">
 
             <ListView
-                android:layout_width="153dp"
+                android:id="@+id/list_view2"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.11" />
-
+                android:choiceMode="multipleChoice"></ListView>
         </LinearLayout>
 
     </LinearLayout>
