@@ -94,18 +94,18 @@ public class hope_list_view extends AppCompatActivity {
         });
     }
     private void setArrayData() {
-        arrayGroup.add("과자");
-        arrayGroup.add("생선");
-        arrayGroup.add("라면");
+        arrayGroup.add("Video Games");
+        arrayGroup.add("Toys and Games");
+        arrayGroup.add("Electronics");
 
         ArrayList<String> arrayCookie = new ArrayList<String>();
-        arrayCookie.add("왕꿈틀이");
-        arrayCookie.add("쫄병스낵");
-        arrayCookie.add("허니버터칩");
+        arrayCookie.add("LEGO Marvel Superheroes 2 - Xbox One");
+        arrayCookie.add("BenQ ZOWIE FK1+ E-Sports Ambidextrous Optical Gaming Mouse");
+        arrayCookie.add("Ever Oasis - Nintendo 3DS");
 
         ArrayList<String> arrayFish = new ArrayList<String>();
-        arrayFish.add("고등어");
-        arrayFish.add("갈치");
+        arrayFish.add("Simon Micro Series Game");
+        arrayFish.add("Toy Story 3 The Video Game - PlayStation 2");
         arrayFish.add("동태");
         arrayFish.add("조기");
         arrayFish.add("명태");

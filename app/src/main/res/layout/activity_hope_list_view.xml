@@ -22,60 +22,63 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#f0ffff"
+        android:background="#d2b48c"
         android:orientation="vertical"
         android:weightSum="1">
+
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
-            android:id="@+id/linearLayout"
-            tools:layout_constraintTop_creator="1"
-            tools:layout_constraintLeft_creator="1"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintTop_creator="1">
+
             <Button
                 android:id="@+id/back_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
                 android:onClick="back_main"
-                android:text="돌아가기" />
+                android:text="Back" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
-            android:id="@+id/linearLayout2"
-            tools:layout_constraintTop_creator="1"
-            tools:layout_constraintLeft_creator="1"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintTop_creator="1">
 
             <Button
                 android:id="@+id/selectAll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="전체선택" />
+                android:text="Select All" />
 
             <Button
                 android:id="@+id/delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="삭제" />
+                android:text="Delete" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:id="@+id/linearLayout3"
-            tools:layout_constraintTop_creator="1"
-            tools:layout_constraintLeft_creator="1"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintTop_creator="1">
 
             <ListView
                 android:id="@+id/listview1"

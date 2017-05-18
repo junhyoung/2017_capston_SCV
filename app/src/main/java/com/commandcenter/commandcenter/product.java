@@ -9,6 +9,7 @@ public class Product {
     private String asin;
     private String review1;
     private String name;
+    private String category;
 
     @DynamoDBHashKey(attributeName = "asin")
     public String getAsin() {
@@ -25,5 +26,9 @@ public class Product {
     @DynamoDBAttribute(attributeName = "name")
     public String getName(){ return name;}
     public void setName(String name){this.name=name;}
+
+    @DynamoDBAttribute(attributeName = "category")
+    public String getCategory(){ return category;}
+    public void setCategory(String name){this.category=category;}
 
 }
