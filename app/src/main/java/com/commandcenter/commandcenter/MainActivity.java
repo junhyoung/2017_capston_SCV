@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     static Member[] member = new Member[MEMBER_NUM]; // 객체타입의 배열 갯수
     int[] countArray = new int[MEMBER_NUM];
     Product review=new Product();
+    recommand recom = new recommand();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         buy_thread runnable2 = new buy_thread();
         Thread thread2 = new Thread(runnable2);
         thread2.setDaemon(true); // main 종료시 같이 종료
+
         thread2.start();
         for (int i = 0; i < MEMBER_NUM; i++) { //해당 객체 배열마다 생성하는 과정
             member[i] = new Member();
@@ -75,7 +78,15 @@ public class MainActivity extends AppCompatActivity {
         //asin="0000000000";
 
         asin = "0000000000"; // DynamoDB에 데이터가 없어서 임시로 강제 지정
+
         review=RL.searchReview(asin);
+
+
+        recom=RL.searchrecommand(review.getCategory());
+        //recommand_name.setText(recom.getCategory());
+        //Log.e("REcom : ",recom.getAsin());
+        setRecommnad(recom);
+
         setReview(review);
 // 검색 선택 버튼 클릭
         Button search = (Button)findViewById(R.id.search_product);
@@ -110,8 +121,11 @@ public class MainActivity extends AppCompatActivity {
         review_name.setText(review.getName());
         review_content.setText(review.getReview1());
     }
-    public void setRecommnad(){
-        recommand_name.setText(asin);
+    public void setRecommnad(recommand r){
+        Right_layout rl= new Right_layout(this);
+        Product pp=rl.searchReview(r.getAsin());
+
+        recommand_name.setText(pp.getName());
     }
 
     // 희망목록 보여주는 무한루프 쓰레드
@@ -138,20 +152,26 @@ public class MainActivity extends AppCompatActivity {
     // 구매목록 보여주는 무한루프 쓰레드
     public class buy_thread implements Runnable {
         public void run() {
-
+            task = new phpDown();
             while (true) {
-                task = new phpDown();
-
                 try {
 
                     asin =task.execute("http://ec2-52-78-183-104.ap-northeast-2.compute.amazonaws.com/RDS.php").get();
                     //System.out.println("Test before");
                     mHandler2.sendEmptyMessage(changemsg2);
+                    Right_layout r= new Right_layout(com.commandcenter.commandcenter.MainActivity.this); //review 생성
+                    Product pTmp=new Product();
+                    pTmp=r.searchReview(asin);
+                    setReview(pTmp);
+                    recommand re=new recommand();
+                    re=r.searchrecommand(pTmp.getCategory());
+                    setRecommnad(re);
                     Thread.sleep(500); // 0.5초 단위로 갱신
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 System.out.print(asin);
+
             }
         }
     }

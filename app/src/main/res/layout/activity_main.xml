@@ -721,10 +721,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:layout_weight="0.2"
-                    android:text="recommandation produce"
+                    android:text="Recommand Product"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
-                    tools:text="Recommandation Produce" />
+                    tools:text="Recommnad Product" />
 
                 <ImageView
                     android:id="@+id/recommand_image"
