@@ -20,6 +20,8 @@ import static com.commandcenter.commandcenter.global.buy_item;
 import static com.commandcenter.commandcenter.global.changemsg;
 import static com.commandcenter.commandcenter.global.changemsg2;
 import static com.commandcenter.commandcenter.global.item;
+import static com.commandcenter.commandcenter.global.c;
+
 
 
 
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        global.c=this;
         setContentView(R.layout.activity_main);
         task = new phpDown();
         Right_layout RL=new Right_layout(this);
@@ -152,20 +155,22 @@ public class MainActivity extends AppCompatActivity {
     // 구매목록 보여주는 무한루프 쓰레드
     public class buy_thread implements Runnable {
         public void run() {
-            task = new phpDown();
+            Right_layout rr=new Right_layout(com.commandcenter.commandcenter.MainActivity.this);
             while (true) {
                 try {
-
+                    task = new phpDown();
                     asin =task.execute("http://ec2-52-78-183-104.ap-northeast-2.compute.amazonaws.com/RDS.php").get();
+                    for(int i=0; i<MEMBER_NUM; i++){
+                       if(member[i].getBacord()==null)
+                            break;
+                         //여기에다 member[i].getBacord()를 이용해 member[i].setName()에 맵핑하여 구하면 된다.
+                        System.out.println("NAME1 :  "+rr.searchReview(member[i].getBacord()).getName());
+                        buy_item.add(0, rr.searchReview(member[i].getBacord()).getName()); // 사용자가 보기 쉽게 맨 앞에 저장
+                    }
+                    //System.out.print("ASIN : "+asin);
                     //System.out.println("Test before");
                     mHandler2.sendEmptyMessage(changemsg2);
-                    Right_layout r= new Right_layout(com.commandcenter.commandcenter.MainActivity.this); //review 생성
-                    Product pTmp=new Product();
-                    pTmp=r.searchReview(asin);
-                    setReview(pTmp);
-                    recommand re=new recommand();
-                    re=r.searchrecommand(pTmp.getCategory());
-                    setRecommnad(re);
+
                     Thread.sleep(500); // 0.5초 단위로 갱신
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -180,8 +185,15 @@ public class MainActivity extends AppCompatActivity {
             if(msg.what == 1){
                 listview2.setAdapter(adapter2) ; // 희망 구매 목록 보여주기
                 changemsg2 = 0;
+                Right_layout r= new Right_layout(com.commandcenter.commandcenter.MainActivity.this); //review 생성
+                Product pTmp=new Product();
+                pTmp=r.searchReview(asin);
+                setReview(pTmp);
+                recommand re=new recommand();
+                re=r.searchrecommand(pTmp.getCategory());
+                setRecommnad(re);
                 System.out.println("ASIN" + asin);
-                recommand_name.setText(asin);
+                //recommand_name.setText(asin);
             }
         }
     };

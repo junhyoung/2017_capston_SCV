@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#FFFFFF"
+        android:background="#ffb86c"
         android:orientation="vertical">
 
         <LinearLayout
@@ -513,9 +513,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#d2b48c"
+        android:weightSum="1"
+        android:background="#fa8072"
         android:orientation="vertical">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/xml_border"
+            android:layout_weight="0.5">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -561,7 +567,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></ListView>
         </LinearLayout>
-
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/xml_border"
+            android:orientation="vertical"
+            android:layout_weight="0.5">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -630,12 +642,13 @@
                 android:layout_height="match_parent"
                 android:choiceMode="multipleChoice"></ListView>
         </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:background="#000000"
+        android:background="#9370db"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="match_parent"
@@ -646,7 +659,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:background="#d2b48c"
+            android:background="@drawable/xml_border"
             android:gravity="right"
             android:orientation="vertical"
             android:weightSum="1">
@@ -703,7 +716,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:background="#d2b48c"
+            android:background="#9370db"
             android:gravity="right"
             android:orientation="vertical"
             android:weightSum="1">
@@ -712,7 +725,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:background="#d2b48c"
+                android:background="@drawable/xml_border"
                 android:gravity="right"
                 android:orientation="vertical"
                 android:weightSum="1">

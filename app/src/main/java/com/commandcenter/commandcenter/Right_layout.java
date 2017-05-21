@@ -22,7 +22,7 @@ public class Right_layout{
     private Product p= new Product();
     private recommand r= new recommand();
 
-    public Right_layout(Context context) { this.mContext = context; }
+    public Right_layout(Context context) { this.mContext = context;}
 
     recommand searchrecommand(String category){
         try {

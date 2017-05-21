@@ -1,6 +1,7 @@
 package com.commandcenter.commandcenter;
 
 import android.app.Application;
+import android.content.Context;
 
 import java.util.ArrayList;
 
@@ -18,4 +19,9 @@ public class global extends Application {
     static int countdb;
     static int total_num;
     static boolean dbfirst = false; // db 접근이 처음이라면 countdb 값을 total_num으로 초기화해줘야 한다.
+    static Context c =null;
+
+    public void setC(Context mContext){
+        c=mContext;
+    }
 }

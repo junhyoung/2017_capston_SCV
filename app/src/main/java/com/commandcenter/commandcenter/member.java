@@ -7,6 +7,7 @@ package com.commandcenter.commandcenter;
 public class Member {
     private String date;
     private String bacord_number;
+    private String name;
 
     Member() {}
     void print(){
@@ -26,5 +27,8 @@ public class Member {
     String getBacord(){
         return this.bacord_number;
     }
+
+    String  getName(){return name;}
+    void setName(String name){this.name=name;}
 }
 
