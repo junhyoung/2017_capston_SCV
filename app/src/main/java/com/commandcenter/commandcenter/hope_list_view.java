@@ -8,12 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.commandcenter.commandcenter.MainActivity.member2;
 import static com.commandcenter.commandcenter.global.item;
+import static com.commandcenter.commandcenter.global.total_num2;
 
 /**
  * Created by kimdonghoon on 2017-05-17.
@@ -46,7 +47,7 @@ public class hope_list_view extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 String menu = arrayChild.get(arrayGroup.get(groupPosition)).get(childPosition);
-                Toast.makeText(hope_list_view.this, menu + "를 희망구매목록에 담았습니다.", 0).show();
+                // Toast.makeText(hope_list_view.this, menu + "를 희망구매목록에 담았습니다.", 0).show();
                 // 아이템 추가.
                 item.add(menu);
                 // listview 갱신
@@ -94,29 +95,146 @@ public class hope_list_view extends AppCompatActivity {
         });
     }
     private void setArrayData() {
-        arrayGroup.add("Video Games");
-        arrayGroup.add("Toys and Games");
-        arrayGroup.add("Electronics");
+        boolean flag; // 카테고리 중복 되어 있지 않다고 가정
+        for(int i=0; i<total_num2; i++){
+            flag = false;
+            if(i == 0) {
+                arrayGroup.add(member2[i].getCategory());
+                continue;
+            }
+            for(int j=0; j<=arrayGroup.size()-1; j++){
+                if(member2[i].getCategory().equals(arrayGroup.get(j).toString())){
+                    flag = true;
+                    break;
+                }
+            }
+            if(flag == false){
+                arrayGroup.add(member2[i].getCategory());
+            }
+        }
 
-        ArrayList<String> arrayCookie = new ArrayList<String>();
-        arrayCookie.add("LEGO Marvel Superheroes 2 - Xbox One");
-        arrayCookie.add("BenQ ZOWIE FK1+ E-Sports Ambidextrous Optical Gaming Mouse");
-        arrayCookie.add("Ever Oasis - Nintendo 3DS");
+        // category 15개
+        ArrayList<String> Eletronics = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("Eletronics")) {
+                Eletronics.add(member2[i].getName_list());
+            }
+        }
 
-        ArrayList<String> arrayFish = new ArrayList<String>();
-        arrayFish.add("Simon Micro Series Game");
-        arrayFish.add("Toy Story 3 The Video Game - PlayStation 2");
-        arrayFish.add("동태");
-        arrayFish.add("조기");
-        arrayFish.add("명태");
+        ArrayList<String> Toys_and_Games = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("Toys and Games")) {
+                Toys_and_Games.add(member2[i].getName_list());
+            }
+        }
 
-        ArrayList<String> arrayRamen = new ArrayList<String>();
-        arrayRamen.add("신라면");
-        arrayRamen.add("진라면");
-        arrayRamen.add("진짬뽕");
+        ArrayList<String> Video_Games = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("Video Games")) {
+                Video_Games.add(member2[i].getName_list());
+            }
+        }
 
-        arrayChild.put(arrayGroup.get(0), arrayCookie);
-        arrayChild.put(arrayGroup.get(1), arrayFish);
-        arrayChild.put(arrayGroup.get(2), arrayRamen);
+        ArrayList<String> Hearth_and_Personal_Care = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("Hearth and Personal Care")) {
+                Hearth_and_Personal_Care.add(member2[i].getName_list());
+            }
+        }
+
+        ArrayList<String> Clothing_Shoes_and_Jewelry = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("Clothing, Shoes and Jewelry")) {
+                Clothing_Shoes_and_Jewelry.add(member2[i].getName_list());
+            }
+        }
+
+        ArrayList<String> Sports_and_Outdoors = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("Sports and Outdoors")) {
+                Sports_and_Outdoors.add(member2[i].getName_list());
+            }
+        }
+
+        ArrayList<String> Baby = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("Baby")) {
+                Baby.add(member2[i].getName_list());
+            }
+        }
+
+        ArrayList<String> Tools_and_Home_Improvement = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("Tools and Home Improvement")) {
+                Tools_and_Home_Improvement.add(member2[i].getName_list());
+            }
+        }
+
+        ArrayList<String> Pet_Supplies = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("Pet Supplies")) {
+                Pet_Supplies.add(member2[i].getName_list());
+            }
+        }
+
+        ArrayList<String> Grocery_and_Gourmet_Food = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("Grocery and Gourmet Food")) {
+                Grocery_and_Gourmet_Food.add(member2[i].getName_list());
+            }
+        }
+
+        ArrayList<String> Enter = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("Enter")) {
+                Enter.add(member2[i].getName_list());
+            }
+        }
+
+        ArrayList<String> Caher = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("Caher")) {
+                Caher.add(member2[i].getName_list());
+            }
+        }
+
+        ArrayList<String> Books = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("Books")) {
+                Books.add(member2[i].getName_list());
+            }
+        }
+
+        ArrayList<String> OfficeProduct = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("OfficeProduct")) {
+                OfficeProduct.add(member2[i].getName_list());
+            }
+        }
+
+        ArrayList<String> CDs_and_Vinyl = new ArrayList<String>();
+        for(int i=0; i<total_num2; i++) {
+            if (member2[i].getCategory().equals("CDs and Vinyl")) {
+                CDs_and_Vinyl.add(member2[i].getName_list());
+            }
+        }
+        //arrayRamen.add("신라면");
+
+
+        arrayChild.put(arrayGroup.get(0), Sports_and_Outdoors);
+        arrayChild.put(arrayGroup.get(1), CDs_and_Vinyl);
+        arrayChild.put(arrayGroup.get(2), Eletronics);
+        arrayChild.put(arrayGroup.get(3), Hearth_and_Personal_Care);
+        arrayChild.put(arrayGroup.get(4), Toys_and_Games);
+        arrayChild.put(arrayGroup.get(5), Enter);
+        arrayChild.put(arrayGroup.get(6), Baby);
+        arrayChild.put(arrayGroup.get(7), Pet_Supplies);
+        arrayChild.put(arrayGroup.get(8), Clothing_Shoes_and_Jewelry);
+        arrayChild.put(arrayGroup.get(9), Video_Games);
+        arrayChild.put(arrayGroup.get(10), Grocery_and_Gourmet_Food);
+        arrayChild.put(arrayGroup.get(11), Tools_and_Home_Improvement);
+        arrayChild.put(arrayGroup.get(12), Caher);
+        arrayChild.put(arrayGroup.get(13), Books);
+        arrayChild.put(arrayGroup.get(14), OfficeProduct);
     }
 }

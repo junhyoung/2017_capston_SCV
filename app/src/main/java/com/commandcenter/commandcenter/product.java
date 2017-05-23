@@ -10,6 +10,8 @@ public class Product {
     private String review1;
     private String name;
     private String category;
+    private String relate;
+    private String image;
 
     @DynamoDBHashKey(attributeName = "asin")
     public String getAsin() {
@@ -30,5 +32,13 @@ public class Product {
     @DynamoDBAttribute(attributeName = "category")
     public String getCategory(){ return category;}
     public void setCategory(String category){this.category=category;}
+
+    @DynamoDBAttribute(attributeName = "relate")
+    public String getRelate(){ return relate;}
+    public void setRelate(String relate){this.relate=relate;}
+
+    @DynamoDBAttribute(attributeName = "image")
+    public String getImage(){ return image;}
+    public void setImage(String image){this.image=image;}
 
 }

@@ -28,7 +28,7 @@ public class Member {
         return this.bacord_number;
     }
 
-    String  getName(){return name;}
+    String getName(){return name;}
     void setName(String name){this.name=name;}
 }
 
