@@ -31,6 +31,7 @@ import static com.commandcenter.commandcenter.global.asin;
 import static com.commandcenter.commandcenter.global.buy_item;
 import static com.commandcenter.commandcenter.global.buy_item_name;
 import static com.commandcenter.commandcenter.global.c;
+import static com.commandcenter.commandcenter.global.category;
 import static com.commandcenter.commandcenter.global.changemsg;
 import static com.commandcenter.commandcenter.global.changemsg2;
 import static com.commandcenter.commandcenter.global.item;
@@ -117,13 +118,10 @@ public class MainActivity extends AppCompatActivity {
             member[i] = new Member();
         }
 
-        //asin="0000000000";
-        asin = "0000000000"; // DynamoDB에 데이터가 없어서 임시로 강제 지정
+        asin = "B00MYMTA4Y"; // DynamoDB에 데이터가 없어서 임시로 강제 지정
         review=RL.searchReview(asin);
         recom=RL.searchrecommand(review.getCategory());
-        //recommand_name.setText(recom.getCategory());
-        //Log.e("REcom : ",recom.getAsin());
-        setRecommnad(recom);
+        setRecommnad(review);
 
         setReview(review);
         // 검색 선택 버튼 클릭
@@ -144,17 +142,13 @@ public class MainActivity extends AppCompatActivity {
                 String name = (String)adapterView.getAdapter().getItem(position);
                 for(int i=0; i<total_num2; i++){
                     if(member2[i].getName_list().equals(name)){
-                        // Toast.makeText(MainActivity.this, member2[i].getAsin(), Toast.LENGTH_SHORT).show();
                         Right_layout r= new Right_layout(com.commandcenter.commandcenter.MainActivity.this); //review 생성
                         Product pTmp=new Product();
                         pTmp=r.searchReview(member2[i].getAsin());
                         setReview(pTmp);
-                        recommand re=new recommand();
-                        re=r.searchrecommand(pTmp.getCategory());
-                        setRecommnad(re);
+                        setRecommnad(pTmp);
                     }
                 }
-                //Toast.makeText(MainActivity.this, name, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -195,12 +189,12 @@ public class MainActivity extends AppCompatActivity {
                             Right_layout r= new Right_layout(com.commandcenter.commandcenter.MainActivity.this); //review 생성
                             Product pTmp=new Product();
                             pTmp=r.searchReview(buy_item.get(buy_item.size()-1-i));
-                            //pTmp=r.searchReview(buy_item.get(buy_item.size()-1));
                             setReview(pTmp);
-                            recommand re=new recommand();
-                            re=r.searchrecommand(pTmp.getCategory());
-                            setRecommnad(re);
+                            setRecommnad(pTmp);
                         }
+                    }
+                    else if(check_count == 0){
+                        Toast.makeText(MainActivity.this, "I did not choose anything.", Toast.LENGTH_SHORT).show();
                     }
                     else{
                         Toast.makeText(MainActivity.this, "Select only one!!!!", Toast.LENGTH_SHORT).show();
@@ -210,7 +204,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // 리스트 총 갯수만큼 Member_list 객체 할당
-        //Member_list[] member2 = new Member_list[total_num2];
         member2 = new Member_list[total_num2];
         for (int i = 0; i < total_num2; i++) { //해당 객체 배열마다 생성하는 과정
             member2[i] = new Member_list();
@@ -224,10 +217,9 @@ public class MainActivity extends AppCompatActivity {
         review_name.setText(review.getName());
         review_content.setText(review.getReview1());
     }
-    public void setRecommnad(recommand r){
+    public void setRecommnad(Product r){
         Right_layout rl= new Right_layout(this);
-        Product pp=rl.searchReview(r.getAsin());
-        System.out.println("AA : "+pp.getImage());
+        Product pp=rl.searchReview(r.getRelate());
         urltmp = pp.getImage();
        final Handler handler = new Handler();
 
@@ -236,8 +228,6 @@ public class MainActivity extends AppCompatActivity {
             public void run() {    // 오래 거릴 작업을 구현한다
                 // TODO Auto-generated method stub
                 try{
-                    // 걍 외우는게 좋다 -_-;
-
                     URL url = new URL(urltmp);
                     InputStream is = url.openStream();
                     final Bitmap bm = BitmapFactory.decodeStream(is);
@@ -259,19 +249,7 @@ public class MainActivity extends AppCompatActivity {
         t.start();
 
 
-//        try {
-//            //image = new Image(pp.getImage());
-//            System.out.println("GER RElate : "+pp.getImage());
-//            //Bitmap bitmap= image.execute().get();
-//            //System.out.println("Image : " + bitmap);
-//            //recommand_img.setImageBitmap(bitmap);
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
         recommand_name.setText(pp.getName());
-
-        System.out.println("BB : "+ pp.getName());
     }
 
     // 희망목록 보여주는 무한루프 쓰레드
@@ -292,6 +270,34 @@ public class MainActivity extends AppCompatActivity {
             if(msg.what == 1){
                 listview.setAdapter(adapter) ; // 희망 구매 목록 보여주기
                 changemsg = 0;
+
+                // 카테고리 배열 초기화 (맵에 희망목록에서 선택한 카테고리 넘겨줄거임)
+                for(int i=0; i<13; i++){
+                    category[i] = "nothing";
+                }
+                // 카테고리 총 갯수 13개
+                for(int i=0; i<item.size(); i++) {
+                    boolean flag = false; // 카테고리 넣은게 중복되는지 안되는지
+                    String category_name = null;
+                    for(int j=0; j<total_num2; j++){ // 멤버2 돌면서 물품에 해당하는 카테고리를 찾는다.
+                        if(item.get(i).equals(member2[j].getName_list())){
+                            category_name = member2[j].getCategory();
+                        }
+                    }
+                    for(int j=0; j<13; j++){
+                        if(category[j].equals(category_name)){
+                            flag = true; // 중복이 있는거
+                        }
+                    }
+                    if(flag == false){ // 중복이 없으면
+                        for(int j=0; j<13; j++){
+                            if(category[j].equals("nothing")){
+                                category[j] = category_name;
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
     };
@@ -302,20 +308,12 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     task = new phpDown();
                     asin =task.execute("http://ec2-52-78-183-104.ap-northeast-2.compute.amazonaws.com/RDS.php").get();
-                    //for(int i=0; i<MEMBER_NUM; i++){
-                    //if(member[i].getBacord()==null)
-                    //break;
-                    //여기에다 member[i].getBacord()를 이용해 member[i].setName()에 맵핑하여 구하면 된다.
-                    //System.out.println("NAME1 :  "+ rr.searchReview(member[i].getBacord()).getName());
-                    //buy_item.add(0, rr.searchReview(member[i].getBacord()).getName()); // 사용자가 보기 쉽게 맨 앞에 저장
-                    //}
                     mHandler2.sendEmptyMessage(changemsg2);
 
                     Thread.sleep(500); // 0.5초 단위로 갱신
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                System.out.print(asin);
             }
         }
     }
@@ -330,11 +328,7 @@ public class MainActivity extends AppCompatActivity {
                 Product pTmp=new Product();
                 pTmp=r.searchReview(buy_item.get(buy_item.size()-1));
                 setReview(pTmp);
-                recommand re=new recommand();
-                re=r.searchrecommand(pTmp.getCategory());
-                setRecommnad(re);
-                //System.out.println("ASIN" + asin);
-                //recommand_name.setText(asin); <- 이거 넣으면 물품란에 asin 나옴
+                setRecommnad(pTmp);
             }
         }
     };
@@ -352,7 +346,6 @@ public class MainActivity extends AppCompatActivity {
             // TODO Auto-generated method stub
             try{
                 URL myFileUrl = new URL(url);
-                System.out.println(" URL : "+url);
                 HttpURLConnection conn = (HttpURLConnection)myFileUrl.openConnection();
                 conn.setDoInput(true);
                 conn.connect();

@@ -49,13 +49,11 @@ public class phpDown_list extends AsyncTask<String, Integer, String> {
                             index = line.indexOf(":");
                             index2 = line.indexOf(" ");
                             total_num2 = Integer.parseInt(line.substring(index+1, index2)); // 리스트 총 갯수 세기 (string -> int형)
-                            System.out.println("total num2 : " + total_num2);
                         }
                         if(list_flag == true) {
                             if (total_num2 == 0) break; // 데이터가 하나도없으면 루프 종료
                             line = br.readLine();
 
-                            //System.out.println("line : " + line);
                             // category 읽기
                             index = line.indexOf(":"); // category : 에서 ":"의 index
                             index2 = line.indexOf(",\""); // "category":cookie, 에서 ","의 index
@@ -76,16 +74,13 @@ public class phpDown_list extends AsyncTask<String, Integer, String> {
                             value = line.substring(index+1, index2);
                             member2[i].setAsin(value); // member2[i]에 asin 넣는다.
 
-                            member2[i].print(); // test 출력문
 
                             if (i >= total_num2 - 1) // 마지막 데이터라면
                             {
-                                //jsonHtml.append(member[i].getBacord());
                                 break; // 마지막이니 무한루프 종료
                             }
                         }
                         else{ // 처음에는 라인 읽을 필요 X
-                            System.out.println("Nope : ");
                             list_flag = true;
                             break;
                         }

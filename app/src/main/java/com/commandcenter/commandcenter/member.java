@@ -10,9 +10,6 @@ public class Member {
     private String name;
 
     Member() {}
-    void print(){
-        System.out.println("bacord_number : "+ bacord_number);
-    }
     void setDate(String date){
         this.date = date;
     }

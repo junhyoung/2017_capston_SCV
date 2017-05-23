@@ -74,15 +74,10 @@ public class phpDown extends AsyncTask<String, Integer, String> {
                         if(i >= total_num-1) // 마지막 데이터라면
                         {
                             jsonHtml.append(member[i].getBacord());
-                            //member[i].print();
                             if(countdb != total_num) // 처음시작이 아니고 바코드 변화값이 있을 때
                             {
                                 // 바코드 찍은 갯수만큼 buy_item 어레이 리스트에 저장
                                 for(int j=0; j<total_num-countdb; j++) {
-                                    //buy_item.add(0, member[i].getBacord()); // 사용자가 보기 쉽게 맨 앞에 저장
-
-                                    //buy_item.add(0, ); // 사용자가 보기 쉽게 맨 앞에 저장
-                                    System.out.println("buyitem : " + buy_item);
                                     global.changemsg2 = 1;
                                 }
                             }

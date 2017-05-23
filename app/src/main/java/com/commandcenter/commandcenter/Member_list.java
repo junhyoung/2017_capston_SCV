@@ -10,9 +10,6 @@ public class Member_list {
     private String asin_list;
 
     Member_list() {}
-    void print(){
-        System.out.println("category : "+ category + " name : " + name_list + " asin : " + asin_list);
-    }
     void setCategory(String category){ this.category = category; }
     String getCategory(){
         return this.category;

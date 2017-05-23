@@ -47,7 +47,6 @@ public class hope_list_view extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 String menu = arrayChild.get(arrayGroup.get(groupPosition)).get(childPosition);
-                // Toast.makeText(hope_list_view.this, menu + "를 희망구매목록에 담았습니다.", 0).show();
                 // 아이템 추가.
                 item.add(menu);
                 // listview 갱신
@@ -113,7 +112,7 @@ public class hope_list_view extends AppCompatActivity {
             }
         }
 
-        // category 15개
+        // category 13개
         ArrayList<String> Eletronics = new ArrayList<String>();
         for(int i=0; i<total_num2; i++) {
             if (member2[i].getCategory().equals("Eletronics")) {
@@ -151,7 +150,7 @@ public class hope_list_view extends AppCompatActivity {
 
         ArrayList<String> Sports_and_Outdoors = new ArrayList<String>();
         for(int i=0; i<total_num2; i++) {
-            if (member2[i].getCategory().equals("Sports and Outdoors")) {
+            if (member2[i].getCategory().equals("Sports & Outdoors")) {
                 Sports_and_Outdoors.add(member2[i].getName_list());
             }
         }
@@ -165,7 +164,7 @@ public class hope_list_view extends AppCompatActivity {
 
         ArrayList<String> Tools_and_Home_Improvement = new ArrayList<String>();
         for(int i=0; i<total_num2; i++) {
-            if (member2[i].getCategory().equals("Tools and Home Improvement")) {
+            if (member2[i].getCategory().equals("Tools & Home Improvement")) {
                 Tools_and_Home_Improvement.add(member2[i].getName_list());
             }
         }
@@ -179,11 +178,11 @@ public class hope_list_view extends AppCompatActivity {
 
         ArrayList<String> Grocery_and_Gourmet_Food = new ArrayList<String>();
         for(int i=0; i<total_num2; i++) {
-            if (member2[i].getCategory().equals("Grocery and Gourmet Food")) {
+            if (member2[i].getCategory().equals("Grocery & Gourmet Food")) {
                 Grocery_and_Gourmet_Food.add(member2[i].getName_list());
             }
         }
-
+        /*
         ArrayList<String> Enter = new ArrayList<String>();
         for(int i=0; i<total_num2; i++) {
             if (member2[i].getCategory().equals("Enter")) {
@@ -197,6 +196,7 @@ public class hope_list_view extends AppCompatActivity {
                 Caher.add(member2[i].getName_list());
             }
         }
+        */
 
         ArrayList<String> Books = new ArrayList<String>();
         for(int i=0; i<total_num2; i++) {
@@ -207,7 +207,7 @@ public class hope_list_view extends AppCompatActivity {
 
         ArrayList<String> OfficeProduct = new ArrayList<String>();
         for(int i=0; i<total_num2; i++) {
-            if (member2[i].getCategory().equals("OfficeProduct")) {
+            if (member2[i].getCategory().equals("Office Products")) {
                 OfficeProduct.add(member2[i].getName_list());
             }
         }
@@ -222,19 +222,20 @@ public class hope_list_view extends AppCompatActivity {
 
 
         arrayChild.put(arrayGroup.get(0), Sports_and_Outdoors);
-        arrayChild.put(arrayGroup.get(1), CDs_and_Vinyl);
-        arrayChild.put(arrayGroup.get(2), Eletronics);
-        arrayChild.put(arrayGroup.get(3), Hearth_and_Personal_Care);
-        arrayChild.put(arrayGroup.get(4), Toys_and_Games);
-        arrayChild.put(arrayGroup.get(5), Enter);
-        arrayChild.put(arrayGroup.get(6), Baby);
-        arrayChild.put(arrayGroup.get(7), Pet_Supplies);
-        arrayChild.put(arrayGroup.get(8), Clothing_Shoes_and_Jewelry);
-        arrayChild.put(arrayGroup.get(9), Video_Games);
-        arrayChild.put(arrayGroup.get(10), Grocery_and_Gourmet_Food);
-        arrayChild.put(arrayGroup.get(11), Tools_and_Home_Improvement);
-        arrayChild.put(arrayGroup.get(12), Caher);
-        arrayChild.put(arrayGroup.get(13), Books);
-        arrayChild.put(arrayGroup.get(14), OfficeProduct);
+        arrayChild.put(arrayGroup.get(1), Books);
+        arrayChild.put(arrayGroup.get(2), Baby);
+        arrayChild.put(arrayGroup.get(3), OfficeProduct);
+        arrayChild.put(arrayGroup.get(4), Pet_Supplies);
+        arrayChild.put(arrayGroup.get(5), Tools_and_Home_Improvement);
+        arrayChild.put(arrayGroup.get(6), Video_Games);
+        arrayChild.put(arrayGroup.get(7), Hearth_and_Personal_Care);
+        arrayChild.put(arrayGroup.get(8), CDs_and_Vinyl);
+        arrayChild.put(arrayGroup.get(9), Grocery_and_Gourmet_Food);
+        arrayChild.put(arrayGroup.get(10), Eletronics);
+        arrayChild.put(arrayGroup.get(11), Toys_and_Games);
+        arrayChild.put(arrayGroup.get(12), Clothing_Shoes_and_Jewelry);
+
+
+
     }
 }
