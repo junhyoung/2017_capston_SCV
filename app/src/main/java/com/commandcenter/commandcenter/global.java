@@ -23,7 +23,7 @@ public class global extends Application {
     static boolean dbfirst = false; // db 접근이 처음이라면 countdb 값을 total_num으로 초기화해줘야 한다.
     static Context c = null;
     static boolean list_flag = false; // task2.excute 처음 실행과 나중을 구분해 주기 위함
-    static String category[] = new String[30];
+    static String category[] = new String[13];
     public void setC(Context mContext){
         c=mContext;
     }

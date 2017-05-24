@@ -20,8 +20,11 @@ public class PathDraw extends View {
     int[] saveStandArray;
     SaleStandSet saveSaleStandSet;
 
-    public PathDraw(Context context, int[] standArray, SaleStandSet saleStandSet) {
+    public PathDraw(Context context) {
         super(context);
+    }
+
+    public void makePath(int[] standArray, SaleStandSet saleStandSet) {
         saveStandArray = standArray;
         saveSaleStandSet = saleStandSet;
     }
@@ -29,6 +32,8 @@ public class PathDraw extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        System.out.printf("RECALL TEST : %d\n", saveStandArray.length);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.map);
         Rect rtDest = new Rect(0, 0, getWidth(), getHeight());
@@ -38,13 +43,13 @@ public class PathDraw extends View {
         paint.setColor(Color.BLACK);
         paint.setStrokeWidth(5f);
         paint.setStyle(Paint.Style.STROKE);
+
         Path path = new Path();
         path.moveTo(saveSaleStandSet.saleStands[saveStandArray[0]].saleStandLocation[0], saveSaleStandSet.saleStands[saveStandArray[0]].saleStandLocation[1]);
         path.lineTo(saveSaleStandSet.saleStands[saveStandArray[0]].saleStandLocation[0], saveSaleStandSet.saleStands[saveStandArray[0]].saleStandLocation[1]);
 
-        for(int i = 0; i<saveStandArray.length; i++)
-        {
-            if(i != 0 && saveStandArray[i] != 0) {
+        for (int i = 1; i < saveStandArray.length; i++) {
+            if (saveStandArray[i] != 0) {
                 path.lineTo(saveSaleStandSet.saleStands[saveStandArray[i]].saleStandLocation[0], saveSaleStandSet.saleStands[saveStandArray[i]].saleStandLocation[1]);
             }
         }

@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     ListView listview2;
     static SaleStandSet saleStandSet;
     MapPath_Floyd map;
+    PathFinder pathFinder;
+    PathDraw pathDraw;
     String urltmp;
     Image image;
     private Context mContext = this;
@@ -64,20 +66,21 @@ public class MainActivity extends AppCompatActivity {
     static Member_list[] member2;// 객체타입의 배열 갯수
     Product review=new Product();
     recommand recom = new recommand();
+    LinearLayout linearLayout;
 
-//    @Override
-//    public void onWindowFocusChanged(boolean hasFocus) {
-//
-//        saleStandSet = new SaleStandSet(this);
-//
-//        PathFinder pathFinder = new PathFinder();
-//        pathFinder.findPathWithFloyd(map, saleStandSet);
-//
-//        setContentView(R.layout.activity_main);
-//        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.map_layout);
-//        PathDraw pathDraw = new PathDraw(MainActivity.this, pathFinder.standArray, saleStandSet);
-//        linearLayout.addView(pathDraw);
-//    }
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+
+        if(hasFocus == true) {
+            saleStandSet = new SaleStandSet(this);
+            pathFinder = new PathFinder();
+            pathFinder.findPathWithFloyd(map, saleStandSet, category);
+            linearLayout = (LinearLayout) findViewById(R.id.map_layout);
+            pathDraw = new PathDraw(MainActivity.this);
+            pathDraw.makePath(pathFinder.standArray, saleStandSet);
+            linearLayout.addView(pathDraw);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +104,9 @@ public class MainActivity extends AppCompatActivity {
         adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, buy_item) ;
         adapter3 = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, buy_item_name) ;
         listview2 = (ListView) findViewById(R.id.list_view2) ;
-
+        for(int i=0; i<13; i++){
+            category[i] = "nothing";
+        }
 
         map = new MapPath_Floyd();
         map.floyd();
@@ -302,6 +307,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
+
+                pathFinder.findPathWithFloyd(map, saleStandSet, category);
+                pathDraw.makePath(pathFinder.standArray, saleStandSet);
+                pathDraw.postInvalidate();
             }
         }
     };

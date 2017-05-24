@@ -5,26 +5,27 @@ package com.commandcenter.commandcenter;
  */
 
 import java.util.Arrays;
+import java.util.concurrent.SynchronousQueue;
 
 public class PathFinder {
 
     // 생성자로 맵에 표시할 카테고리들을 받아온다.
 
-    String[] testString;
+    String[] testString = new String[13];
     StandWeightSet[] minStandWeightSort;
     int[] standArray;
 
     public PathFinder() {
-
-        testString = new String[] {
-                "Electronics", "Clothing, Shoes and Jewelry", "Sports and Outdoors", "Pet Supplies"
-        };
         minStandWeightSort = new StandWeightSet[testString.length + 2];
     }
 
     // 해당 카테고리들로 가기 위한 경로를 추적하고, 해당 경로들을 배열에 저장.
-    public void findPathWithFloyd(MapPath_Floyd map, SaleStandSet saleStandSet) {
+    public void findPathWithFloyd(MapPath_Floyd map, SaleStandSet saleStandSet, String[] category) {
 
+        testString = category;
+        for(int i = 0 ;i <testString.length; i++)
+            System.out.printf("%s ", testString[i]);
+        System.out.println();
         for (int i = 0; i < minStandWeightSort.length; i++) {
             minStandWeightSort[i] = new StandWeightSet();
         }
@@ -44,7 +45,19 @@ public class PathFinder {
             }
         }
 
+        System.out.printf("TEST_1 ");
+        for(int i = 0; i<minStandWeightSort.length; i++) {
+            System.out.printf("%d ", minStandWeightSort[i].weightSum);
+        }
+        System.out.println();
+
         Arrays.sort(minStandWeightSort);
+
+        System.out.printf("TEST_2 ");
+        for(int i = 0; i<minStandWeightSort.length; i++) {
+            System.out.printf("%d ", minStandWeightSort[i].weightSum);
+        }
+        System.out.println();
 
         int[] trackingStandArray;
         int trackingIndex = 0;
@@ -62,6 +75,12 @@ public class PathFinder {
             }
             standArray[standIndex++] = minStandWeightSort[i+1].category;
         }
+        System.out.printf("TEST_3 ");
+        for(int i = 0; i<standArray.length; i++) {
+            System.out.printf("%d ", standArray[i]);
+        }
+        System.out.println();
+
     }
 
     // recursive를 활용하여 맵의 경로를 추적
