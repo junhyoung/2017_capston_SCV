@@ -31,7 +31,7 @@ public class PathDraw extends View {
         super.onDraw(canvas);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.map);
-        Rect rtDest = new Rect(0, 0, getWidth()/3, getHeight());
+        Rect rtDest = new Rect(0, 0, getWidth(), getHeight());
         canvas.drawBitmap(bitmap, null, rtDest, null);
 
         Paint paint = new Paint();

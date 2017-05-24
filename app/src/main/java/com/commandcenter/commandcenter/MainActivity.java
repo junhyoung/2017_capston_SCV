@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
     MapPath_Floyd map;
     String urltmp;
     Image image;
-
     private Context mContext = this;
     ImageView recommand_img;
     TextView review_name;
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     static Member_list[] member2;// 객체타입의 배열 갯수
     Product review=new Product();
     recommand recom = new recommand();
+
 //    @Override
 //    public void onWindowFocusChanged(boolean hasFocus) {
 //
@@ -72,8 +73,10 @@ public class MainActivity extends AppCompatActivity {
 //        PathFinder pathFinder = new PathFinder();
 //        pathFinder.findPathWithFloyd(map, saleStandSet);
 //
+//        setContentView(R.layout.activity_main);
+//        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.map_layout);
 //        PathDraw pathDraw = new PathDraw(MainActivity.this, pathFinder.standArray, saleStandSet);
-//        setContentView(pathDraw);
+//        linearLayout.addView(pathDraw);
 //    }
 
     @Override
@@ -162,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
                 for(int i=count-1; i>=0; i--){
                     if(checkedItems.get(i)){
                         buy_item.remove(i);
+                        buy_item_name.remove(i);
                     }
                 }
                 // 모든 선택 상태 초기화
